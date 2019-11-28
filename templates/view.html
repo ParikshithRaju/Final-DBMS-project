@@ -1,0 +1,139 @@
+<!-- DONE, Add Legend in 'POST' form... Did a lot of changes here-->
+{% extends "layout.html" %} {% from "render_macro.html" import details %} {% block content %}
+<style>
+    .check {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 10vh;
+    }
+    
+    .check .items {
+        padding: 1em 4em;
+    }
+</style>
+<center>
+    <h1>What feilds do you want to inclue:</h1>
+</center>
+<div class="check">
+    <div class="items  content-section">
+        <!-- Added another class.. -->
+        <form action="" id="gen_form">
+            <fieldset class="form-group">
+                Location:
+                <input type="checkbox" name="loc" class="form-group"> Date:
+                <!-- Added another class. Everywhere. -->
+                <input type="checkbox" name="date" class="form-group"> Dept:
+                <input type="checkbox" name="dept" class="form-group"> Crime Id:
+                <input type="checkbox" name="id" class="form-group"> Crime type:
+                <input type="checkbox" name="type" class="form-group">
+                <br>
+                <br>
+                <center>
+                    <input type="button" value="create" class="btn  btn-outline-info" name="sub" onclick="generate()">
+                    <!-- There was genBtn before-->
+                    <input type="reset" value="reset" class="btn  btn-outline-info">
+                </center>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div class="content-section">
+    <form method="POST">
+        <!-- {{ form.csrf_token }} {{ form.hidden_tag() }} -->
+        <fieldset class="form-group">
+            <!-- <legend class="border-bottom  mb-4">
+                    Add some relevent Heading 
+            </legend> -->
+
+            <div id="location" style="display: none" class="form-group">
+                <!-- <h3>{{form.location.label}}</h3>
+                {{form.location}} -->
+                <h3>{{ details(form.location) }}</h3>
+                <br>
+            </div>
+
+            <div id="date" style="display: none" class="form-group">
+                <h3>Enter crime Date:</h3>
+                <!-- {{form.start_date.label}} {{form.start_date}} -->
+                {{ details(form.start_date) }}
+                <br>
+                <br> {{ details(form.end_date) }}
+                <br>
+            </div>
+
+            <div id="dept" style="display: none" class="form-group">
+                <!-- <h3>{{form.dept.label}}</h3> -->
+                {{ details(form.dept) }}
+                <br>
+            </div>
+
+            <div id="id" style="display: none" class="form-group">
+                {{ details(form.Id) }}
+                <br>
+            </div>
+
+            <div id="type" style="display: none" class="form-group">
+                <!-- <h3>{{form.Type.label}}</h3>
+                {{form.Type}} -->
+                {{ details(form.Type) }}
+                <br>
+            </div>
+        </fieldset>
+
+        <div id="sub" style="display: none" class="form-group">
+            <br>
+            <center>{{form.sub3(class="btn btn-outline-info")}}</center>
+        </div>
+    </form>
+</div>
+<script>
+    let f = document.forms[0];
+    let loc = f["loc"]
+    let date = f["date"]
+    let dept = f["dept"]
+    let id = f["id"]
+    let type = f["type"]
+    let no = f["no"]
+    let sub = f["sub"]
+
+    function generate() {
+        let locf = document.getElementById("location")
+        let datef = document.getElementById("date")
+        let deptf = document.getElementById("dept")
+        let idf = document.getElementById("id")
+        let typef = document.getElementById("type")
+        let subf = document.getElementById("sub")
+        subf.style.display = 'block'
+        if (loc.checked) {
+            locf.style.display = 'block'
+        } else {
+            locf.style.display = 'none'
+        }
+        if (date.checked) {
+            datef.style.display = 'block';
+        } else {
+            datef.style.display = 'none';
+        }
+        if (dept.checked) {
+            deptf.style.display = 'block';
+        } else {
+            deptf.style.display = 'none';
+        }
+        if (id.checked) {
+            idf.style.display = 'block';
+        } else {
+            idf.style.display = 'none';
+        }
+        if (type.checked) {
+            typef.style.display = 'block';
+        } else {
+            typef.style.display = 'none';
+        }
+        if (no.checked) {
+
+
+        }
+    }
+</script>
+{% endblock %}

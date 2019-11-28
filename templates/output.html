@@ -1,0 +1,161 @@
+<!-- DONE, But there was nothing much to do -->
+{% extends "layout.html" %} {% block content %}
+<center>
+    <table border="1" class="form-group">
+        <!-- IF YOU GET ERROR HERE, THEN REMOVE THE class="form-group" -->
+        <h1>The Details of the Crime are as follows</h1>
+        <tr>
+            <th>
+                Crime Id
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Department Associated
+            </th>
+            <th>
+                Crime Type
+            </th>
+        </tr>
+        {% for i in r %}
+        <tr>
+            {% for j in i %}
+            <td>
+                {{j}}
+            </td>
+            {% endfor %}
+            <!-- <td>
+                <button onclick="show(this.id)" id="c{{i[0]}}">Get Associated Victims</button>
+            </td>
+            <td>
+                <button onclick="show_criminals(this.id)" id="d{{i[0]}}">Get Associated criminals</button>
+            </td> -->
+            <td>
+                <button onclick="showall(this.id)" id="{{i[0]}}">Get all info about crime</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <br>
+    <br>
+    <br>
+    <div id="mailable">
+        <div id="vic_table" style="display: none">
+            <h1>Here are The Details of The Victims are:</h1>
+            {% for p in v %}
+            <div class="v{{p[0]}}" style="display: none;justify-content: space-between;">
+                <img src="static/victims/{{p[5]}}" width="500" height="300">
+                <br>
+                <br>
+                <h4>Crime Id:{{p[0]}}</h4>
+                <h4> First Name: {{p[1]}}
+                    <h4> Last Name: {{p[2]}}
+                        <h4> Address: {{p[3]}}
+                            <h4> Gender: {{p[4]}}
+                                <h4>Adhar Number: {{p[6]}}</h4>
+            </div>
+            {% endfor %}
+            <span id='no_crims' style="display: none ">This crime has no victims</span>
+            <br>
+            <br>
+        </div>
+        <div id="crim_table" style="display: none">
+            <h1>Here are The Details of The Criminals are:</h1>
+            {% for p in c %}
+            <div class="x{{p[0]}}" style="display: none;">
+                <img src="static/criminals/{{p[5]}}" width="500" height="300">
+                <br>
+                <br>
+                <h4>Crime Id: {{p[0]}}</h4>
+                <h4> First Name: {{p[1]}}</h4>
+                <h4> Last Name: {{p[2]}}</h4>
+                <h4> Address: {{p[3]}}</h4>
+                <h4> Gender: {{p[4]}} </h4>
+                <h4>Adhar Number: {{p[6]}}</h4>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <style>
+        .btns {
+            display: flexbox;
+            justify-content: space-between;
+        }
+    </style>
+    <div class="btns">
+        <!-- <button id="MailBtn" onclick="mailsend()">Send the data as mail</button> -->
+        <button id="PrintBtn" onclick="printit()">Print The data</button>
+    </div>
+</center>
+
+<script>
+    let a = []
+    let b = []
+
+    function show(cid) {
+        if (a.length != 0) {
+            let v = a.pop()
+            let list = document.getElementsByClassName(v)
+            for (let i = 0; i < list.length; i++) {
+                list[i].style.display = 'none'
+            }
+        }
+        let vf = document.getElementById('vic_table')
+        vf.style.display = 'block'
+        console.log(cid)
+        cid = cid.replace('c', 'v')
+        console.log(cid)
+        let list = document.getElementsByClassName(cid)
+        if (list.length != 0) {
+            a.push(cid)
+            for (let i = 0; i < list.length; i++) {
+                list[i].style.display = 'block'
+            }
+
+        } else {
+            vf.style.display = 'none'
+            alert('There are no victims for this crime')
+        }
+    }
+
+    function show_criminals(cid) {
+        let TheTable = document.getElementById('crim_table')
+        TheTable.style.display = 'block'
+        if (b.length != 0) {
+            let CrimeIdOfCriminalsBefore = b.pop()
+            let ListOfCriminalsBefore = document.getElementsByClassName(CrimeIdOfCriminalsBefore)
+            for (let i = 0; i < ListOfCriminalsBefore.length; i++) {
+                ListOfCriminalsBefore[i].style.display = 'none'
+            }
+
+        }
+        let CrimeIdOfCriminals = cid.replace('d', 'x')
+
+        let ListOfCriminals = document.getElementsByClassName(CrimeIdOfCriminals)
+        if (ListOfCriminals.length != 0) {
+            b.push(CrimeIdOfCriminals)
+            for (let i = 0; i < ListOfCriminals.length; i++) {
+                ListOfCriminals[i].style.display = 'block'
+            }
+        } else {
+            TheTable.style.display = 'none'
+            alert('No criminals for this crime')
+        }
+    }
+
+    function showall(cid) {
+        show_criminals("d" + cid)
+        show("c" + cid)
+    }
+
+    function printit() {
+        print()
+    }
+</script>
+{% endblock %}

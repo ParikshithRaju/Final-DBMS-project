@@ -1,0 +1,62 @@
+<!-- Done -->
+{% extends "layout.html" %} {% from "render_macro.html" import details %} {% block content %}
+<div class="content-section">
+    <form action="/addvictim" method="POST" enctype="multipart/form-data">
+        <fieldset class="form-group">
+            <legend class="border-bottom  mb-4">
+                Criminal Information
+            </legend>
+            <div class="form-group">
+                {{ details(victim_form.first) }}
+            </div>
+
+
+            <div class="form-group">
+                {{ details(victim_form.last) }}
+            </div>
+
+
+            <div class="form-group">
+                {{ details(victim_form.address) }}
+            </div>
+
+
+            <div class="form-group">
+                {{ details(victim_form.gender) }}
+            </div>
+
+
+            <div class="form-group">
+                {{ details(victim_form.adhar_number) }}
+            </div>
+
+
+            <div>
+                Enter the victims photo: <br>
+                <br>
+                <input name="u_img" type="file" class="text-info" required="required" /></td>
+            </div>
+
+        </fieldset>
+        <div class="form-group">
+            {{ victim_form.sub1(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+<!-- <p>
+                {{victim_form.first.label}} {{victim_form.first(size=30)}}
+            </p>
+            <p>
+                {{victim_form.last.label}} {{victim_form.last(size=30)}}
+            </p>
+            <p>
+                {{victim_form.address.label}} {{victim_form.address(size=30)}}
+            </p>
+            <p>
+                {{victim_form.gender.label}} {{victim_form.gender}}
+            </p>
+            <p>
+                {{victim_form.adhar_number.label}} {{victim_form.adhar_number(size=30)}}
+            </p> -->
